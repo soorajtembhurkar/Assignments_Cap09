@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .dice {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 2px solid black;
+            text-align: center;
+            line-height: 80px;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        #winner {
+            font-size: 50px;
+            margin-top: 20px;
+        }
+        button {      
+                    display: inline-block;
+                    outline: none;
+                    cursor: pointer;
+                    font-size: 16px;
+                    line-height: 20px;
+                    font-weight: 600;
+                    border-radius: 8px;
+                    padding: 13px 23px;
+                    border: 1px solid #222222;
+                    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+                    background: #fff;
+                    color: #222222;                              
+        }
+        button:hover {
+                        border-color: #000000;
+                        background: #f7f7f7;
+                    }   
+               
+           
+    </style>
+</head>
+<body>
+    <div id="winner"></div>
+
+    <div id="member-1" class="dice"></div>
+    <div id="member-2" class="dice"></div>
+    <div id="member-3" class="dice"></div>
+    <button id="roll" onclick="rollDice()">ROLL THE DICE</button>
+
+    <script>
+        function rollDice() {
+            var member1 = document.getElementById("member-1");
+            var member2 = document.getElementById("member-2");
+            var member3 = document.getElementById("member-3");
+            var winnerDisplay = document.getElementById("winner");
+
+            var score1 = Math.floor(Math.random() * 6) + 1;
+            var score2 = Math.floor(Math.random() * 6) + 1;
+            var score3 = Math.floor(Math.random() * 6) + 1;
+
+            member1.textContent = score1;
+            member2.textContent = score2;
+            member3.textContent = score3;
+
+            var maxScore = Math.max(score1, score2, score3);
+            var minScore = Math.min(score1, score2, score3); 
+
+            if (score1 === score2 && score2 === score3) {
+                winnerDisplay.textContent = "It's a draw!";
+                member1.style.backgroundColor = "blue";
+                member2.style.backgroundColor = "blue";
+                member3.style.backgroundColor = "blue";
+            } else {
+                if (score1 === maxScore) {
+                    member1.style.backgroundColor = "green";
+                    member2.style.backgroundColor = "yellow";
+                    member3.style.backgroundColor = minScore === score1 ? "red" : "yellow";
+                    winnerDisplay.textContent = "Member A Wins!";
+                } else if (score2 === maxScore) {
+                    member2.style.backgroundColor = "green";
+                    member1.style.backgroundColor = "yellow";
+                    member3.style.backgroundColor = minScore === score2 ? "red" : "yellow";
+                    winnerDisplay.textContent = "Member B Wins!";
+                } else {
+                    member3.style.backgroundColor = "green";
+                    member1.style.backgroundColor = "yellow";
+                    member2.style.backgroundColor = minScore === score3 ? "red" : "yellow";
+                    winnerDisplay.textContent = "Member C Wins!";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
